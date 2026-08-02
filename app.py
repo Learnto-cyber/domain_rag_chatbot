@@ -124,15 +124,19 @@ if st.button("Ask"):
     else:
 
         with st.spinner("Searching documents..."):
+            try:
+                result = rag.ask(question)
+            except Exception as e:
+                st.error(f"Error: {e}")
+                st.stop()
 
-            result = rag.ask(question)
         st.session_state.history.append(
-    {
-        "question": question,
-        "answer": result["answer"],
-        "sources": result["sources"]
-    }
-)
+            {
+                "question": question,
+                "answer": result["answer"],
+                "sources": result["sources"]
+            }
+        )
         st.success("Answer Generated")
 
         st.subheader("Answer")
@@ -141,10 +145,7 @@ if st.button("Ask"):
         st.subheader("📄 Source Documents")
 
         for doc in result["sources"]:
-
-            st.info(
-                f"{doc['document']} | Page {doc['page']}"
-            )
+            st.info(f"{doc['document']} | Page {doc['page']}")
 if st.session_state.history:
 
     st.markdown("---")
