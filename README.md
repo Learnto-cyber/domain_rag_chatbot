@@ -1,39 +1,40 @@
 # 📚 Domain Specific RAG Chatbot
 
-A Domain-Specific Retrieval-Augmented Generation (RAG) Chatbot that allows users to upload PDF documents and ask questions based on their content. The application extracts text from PDFs, creates vector embeddings using Sentence Transformers, stores them in a FAISS vector database, retrieves relevant information, and generates accurate answers using the Groq LLM.
+A **Retrieval-Augmented Generation (RAG)** based chatbot that allows users to upload PDF documents and ask questions based only on the uploaded documents. The chatbot extracts text from PDFs, creates semantic embeddings, stores them in a FAISS vector database, retrieves relevant information, and generates answers using the **Groq Llama 3.3 70B** Large Language Model.
 
 ---
 
 ## 🚀 Features
 
-- Upload one or more PDF documents
-- Extract text from PDF pages
-- Split text into semantic chunks
-- Generate embeddings using Sentence Transformers
-- Store embeddings in a FAISS vector database
-- Retrieve the most relevant document chunks
-- Generate answers using the Groq LLM
-- Display source document names and page numbers
-- User-friendly Streamlit interface
+- 📄 Upload one or more PDF documents
+- 📖 Extract text from PDF files
+- ✂️ Automatic text chunking
+- 🧠 Semantic embeddings using Sentence Transformers
+- 🔍 Fast document retrieval using FAISS
+- 🤖 Answer generation using Groq LLM
+- 📑 Displays source document and page number
+- 💬 Session-based chat history
+- 🎨 Interactive Streamlit interface
 
 ---
 
 ## 🛠 Technologies Used
 
-- Python 3.11+
+- Python 3.11
 - Streamlit
 - PyPDF
 - Sentence Transformers
+- PyTorch
 - FAISS
 - LangChain Text Splitters
-- Groq API (Llama 3.3)
-- Python Dotenv
+- Groq API
+- python-dotenv
 
 ---
 
 ## 📂 Project Structure
 
-```
+```text
 domain_rag_chatbot/
 │
 ├── app.py
@@ -42,39 +43,45 @@ domain_rag_chatbot/
 ├── chunker.py
 ├── vector_store.py
 ├── retriever.py
+├── rag_pipeline.py
 ├── llm.py
 ├── prompt.py
-├── rag_pipeline.py
 ├── requirements.txt
 ├── README.md
+├── .env
 │
 ├── documents/
 ├── extracted_text/
 ├── vector_store/
-│   └── saved_index/
-│
-└── .env
+└── screenshots/
 ```
 
 ---
 
-# ⚙ Installation
+# ⚙️ Installation
 
-## 1. Clone the Repository
+## Step 1: Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/<your-username>/domain_rag_chatbot.git
 cd domain_rag_chatbot
 ```
 
+Replace `<your-username>` with your GitHub username.
+
 ---
 
-## 2. Create a Virtual Environment
+## Step 2: Create a Virtual Environment
 
 ### Windows
 
 ```bash
 python -m venv venv
+```
+
+Activate it:
+
+```bash
 venv\Scripts\activate
 ```
 
@@ -87,7 +94,25 @@ source venv/bin/activate
 
 ---
 
-## 3. Install Dependencies
+## Step 3: Upgrade pip
+
+```bash
+python -m pip install --upgrade pip
+```
+
+---
+
+## Step 4: Install PyTorch
+
+Install PyTorch before installing the project requirements.
+
+```bash
+pip install torch torchvision torchaudio
+```
+
+---
+
+## Step 5: Install Project Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -95,37 +120,43 @@ pip install -r requirements.txt
 
 ---
 
-## 4. Create a .env File
+## Step 6: Create a `.env` File
 
-Create a file named
+Create a file named `.env` in the project root.
 
+```env
+GROQ_API_KEY=your_groq_api_key
 ```
-.env
-```
 
-Add your Groq API key.
+Example:
 
-```
-GROQ_API_KEY=your_groq_api_key_here
+```env
+GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ---
 
-## 5. Run the Application
+# ▶️ Running the Application
+
+Run the following command:
 
 ```bash
 streamlit run app.py
 ```
 
-The application will automatically open in your browser.
+The application will open automatically in your browser.
+
+If it does not open automatically, visit:
+
+```
+http://localhost:8501
+```
 
 ---
 
 # 📖 How to Use
 
-### Step 1
-
-Launch the application using
+### 1. Start the application
 
 ```bash
 streamlit run app.py
@@ -133,115 +164,179 @@ streamlit run app.py
 
 ---
 
-### Step 2
+### 2. Upload PDF Documents
 
-Upload one or more PDF files using the **Upload PDF Files** button.
+Click **Upload PDF Files** and select one or more PDF documents.
+
+Example:
+
+- DBMS_notes.pdf
+- Python_notes.pdf
 
 ---
 
-### Step 3
+### 3. Process the Documents
 
 Click **Process Documents**.
 
 The application will:
 
-- Extract text
+- Extract text from PDF pages
 - Split text into chunks
 - Generate embeddings
 - Build the FAISS vector database
 
 ---
 
-### Step 4
+### 4. Ask Questions
 
 Enter a question in the input box.
 
-Example:
+Example questions:
 
 ```
-What is machine learning?
+What is DBMS?
+```
+
+```
+Explain SQL.
+```
+
+```
+What are the advantages of Python?
+```
+
+```
+Explain inheritance.
 ```
 
 ---
 
-### Step 5
+### 5. View the Results
 
-Click **Ask**.
+The chatbot displays:
 
-The chatbot will:
-
-- Search the vector database
-- Retrieve relevant document chunks
-- Send the retrieved context to the Groq LLM
-- Display the generated answer
-
----
-
-### Step 6
-
-Review the answer and the source document/page references displayed below it.
+- Generated Answer
+- Source Document
+- Page Number
+- Chat History
 
 ---
 
 # 🔄 Workflow
 
-```
-PDF Upload
-      │
-      ▼
-Text Extraction
-      │
-      ▼
-Text Chunking
-      │
-      ▼
-Sentence Embeddings
-      │
-      ▼
-FAISS Vector Database
-      │
-      ▼
-Retriever
-      │
-      ▼
-Groq LLM
-      │
-      ▼
-Generated Answer
-```
-
----
-
-# 📦 Required Packages
-
-```
-streamlit
-pypdf
-faiss-cpu
-sentence-transformers
-langchain-text-splitters
-groq
-python-dotenv
-numpy
-pandas
+```text
+                User
+                  │
+                  ▼
+          Upload PDF Files
+                  │
+                  ▼
+         PDF Text Extraction
+                  │
+                  ▼
+           Text Chunking
+                  │
+                  ▼
+ Sentence Transformer Embeddings
+                  │
+                  ▼
+       FAISS Vector Database
+                  │
+                  ▼
+         User Asks Question
+                  │
+                  ▼
+      Semantic Similarity Search
+                  │
+                  ▼
+       Retrieve Relevant Chunks
+                  │
+                  ▼
+        Groq Llama 3.3 70B
+                  │
+                  ▼
+         Generate Final Answer
+                  │
+                  ▼
+    Source References + Chat History
 ```
 
 ---
 
-# 🧪 Example Questions
+# 📝 Example Questions
 
-- What is Artificial Intelligence?
-- Explain Neural Networks.
-- What are the applications of Machine Learning?
-- Define Data Mining.
-- Explain Cloud Computing.
+- What is DBMS?
+- Explain SQL.
+- What are the advantages of DBMS?
+- What is Python?
+- Explain Object-Oriented Programming.
+- What are Python keywords?
+- Explain inheritance.
+- Explain encapsulation.
+- Explain polymorphism.
+- What is normalization?
 
 ---
 
+# 📁 Sample Documents
+
+Upload PDF files directly through the application or place them inside the `documents/` folder.
+
+Example:
+
+- DBMS_notes.pdf
+- Python_notes.pdf
+
+---
+
+# 📦 Requirements
+
+- Python 3.11+
+- Streamlit
+- PyTorch
+- Sentence Transformers
+- FAISS
+- PyPDF
+- LangChain Text Splitters
+- Groq API Key
+- python-dotenv
+
+---
+
+# ✅ Testing
+
+The application has been tested for:
+
+- PDF Upload
+- Multiple PDF Upload
+- Text Extraction
+- Text Chunking
+- Vector Database Creation
+- Semantic Retrieval
+- Question Answering
+- Source References
+- Chat History
+- Invalid Question Handling
+
+---
+
+# 🚀 Future Enhancements
+
+- OCR support for scanned PDFs
+- DOCX and TXT support
+- Persistent chat history
+- User authentication
+- Cloud deployment
+- Multi-language support
+
+---
 
 # 👨‍💻 Author
 
 **Drisha D Padival**
+
+Computer Science and Engineering
 
 ---
 
