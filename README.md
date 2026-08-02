@@ -238,17 +238,6 @@ pandas
 
 ---
 
-# 📸 Screenshots
-
-Include screenshots of:
-
-- Home Screen
-- PDF Upload
-- Document Processing
-- Question Answering
-- Source References
-
----
 
 # 👨‍💻 Author
 
