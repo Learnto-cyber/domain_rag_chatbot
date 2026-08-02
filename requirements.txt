@@ -1,0 +1,9 @@
+streamlit
+pypdf
+faiss-cpu
+sentence-transformers
+langchain-text-splitters
+groq
+python-dotenv
+numpy
+pandas
